@@ -24,6 +24,7 @@ from opencensus.ext.azure.log_exporter import AzureEventHandler
 
 # Logging
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 logger.addHandler(AzureLogHandler(connection_string=f'InstrumentationKey={INSTRUMENTATION_KEY}'))
 
 # Metrics
