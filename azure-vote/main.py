@@ -73,22 +73,6 @@ else:
 # Redis Connection
 r = redis.Redis()
 
-# Redis configurations
-#redis_server = os.environ['REDIS']
-
-"""# Redis Connection to another container
-try:
-   if "REDIS_PWD" in os.environ:
-      r = redis.StrictRedis(host=redis_server,
-                        port=6379,
-                        password=os.environ['REDIS_PWD'])
-   else:
-      r = redis.Redis(redis_server)
-   r.ping()
-except redis.ConnectionError:
-   exit('Failed to connect to Redis, terminating.')"""
-
-
 
 # Change title to host name to demo NLB
 if app.config['SHOWHOST'] == "true":
@@ -109,7 +93,7 @@ def index():
         with tracer.span(name='cat_vote_trace') as span:
             span.add_attribute('cat_vote_value', vote1)
             properties = {'custom_dimensions': {'cat_vote_value': vote1}}
-            logger.info('Cat vote retrieved', extra=properties)
+            logger.info('GET Cat vote retrieved', extra=properties)
 
 
         vote2 = r.get(button2).decode('utf-8')
@@ -117,7 +101,7 @@ def index():
         with tracer.span(name='dog_vote_trace') as span:
             span.add_attribute('dog_vote_value', vote2)
             properties = {'custom_dimensions': {'dog_vote_value': vote2}}
-            logger.info('Dog vote retrieved', extra=properties)
+            logger.info('GET Dog vote retrieved', extra=properties)
 
         # Return index with values
         return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
@@ -154,12 +138,12 @@ def index():
             with tracer.span(name='cat_vote_trace') as span:
                 span.add_attribute('cat_vote_value', vote1)
                 properties = {'custom_dimensions': {'cat_vote_value': vote1}}
-                logger.info('Cat vote retrieved', extra=properties)
+                logger.info('POST Cat vote retrieved', extra=properties)
 
             with tracer.span(name='dog_vote_trace') as span:
                 span.add_attribute('dog_vote_value', vote2)
                 properties = {'custom_dimensions': {'dog_vote_value': vote2}}
-                logger.info('Dog vote retrieved', extra=properties)
+                logger.info('POST Dog vote retrieved', extra=properties)
 
             # Return results
             return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
