@@ -5,6 +5,7 @@ import redis
 import socket
 import sys
 import logging
+from logging import StreamHandler
 from datetime import datetime
 
 from opencensus.ext.azure import metrics_exporter
@@ -26,6 +27,9 @@ from opencensus.ext.azure.log_exporter import AzureEventHandler
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(AzureLogHandler(connection_string=f'InstrumentationKey={INSTRUMENTATION_KEY}'))
+# Add StreamHandler
+stream_handler = StreamHandler()
+logger.addHandler(stream_handler)
 
 # Metrics
 exporter = metrics_exporter.new_metrics_exporter(
