@@ -16,7 +16,7 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 
 
 # Instrumentation Key
-INSTRUMENTATION_KEY = '750f1ec9-6008-413d-bac7-bf6bcbb88a5b'
+INSTRUMENTATION_KEY = '7InstrumentationKey=750f1ec9-6008-413d-bac7-bf6bcbb88a5b;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/'
 
 # App Insights
 # TODO: Import required libraries for App Insights
